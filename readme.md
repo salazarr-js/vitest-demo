@@ -48,6 +48,12 @@ npm run test sum # Run a specific test
 - [`vi.hoisted()](https://vitest.dev/api/vi.html#vi-hoisted)
 - [`vi.resetModules()`](https://vitest.dev/api/vi.html#vi-resetmodules)
 
+> [!WARNING]
+> Vitest will not mock modules that were imported inside a `setup file` because they are cached by the time a test file is running. You can call `vi.resetModules()` inside `vi.hoisted` to clear all module caches before running a test file.
+>
+> https://vitest.dev/api/vi.html#vi-mock
+
+
 ### `tests/time.test.ts`
 - [`vi.setSystemTime()`](https://vitest.dev/api/vi.html#vi-setsystemtime)
 - [`expect().toBe()`](https://vitest.dev/api/expect.html#tobe)
@@ -68,8 +74,3 @@ npm run test sum # Run a specific test
 - [MSW - `setupServer()`](https://mswjs.io/docs/api/setup-server/)
 - [MSW - `http.get()`](https://mswjs.io/docs/api/http/#httpget)
 - [MSW - `http.json()`](https://mswjs.io/docs/api/http-response#httpresponsejsonbody-init)
-
-> [!WARNING]
-> Vitest will not mock modules that were imported inside a `setup file` because they are cached by the time a test file is running. You can call `vi.resetModules()` inside `vi.hoisted` to clear all module caches before running a test file.
->
-> https://vitest.dev/api/vi.html#vi-mock
