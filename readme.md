@@ -11,10 +11,10 @@ This is a demo project that showcases examples and serves as a guide to implemen
 
 ## References
 
-- [Vitest - Documentation](https://vitest.dev)
-- [Rapid Testing with Vitest - Course](https://vueschool.io/courses/rapid-testing-with-vitest)
-- [Vitest Basic Example - Github codebase](https://github.com/vitest-dev/vitest/tree/main/examples/basic)
-- [Web.dev Learn Testing - Course](https://web.dev/learn/testing)
+- [Vitest - `Documentation`](https://vitest.dev)
+- [Rapid Testing with Vitest - `Course`](https://vueschool.io/courses/rapid-testing-with-vitest)
+- [Vitest Basic Example - `Github codebase`](https://github.com/vitest-dev/vitest/tree/main/examples/basic)
+- [Web.dev Learn Testing - `Course`](https://web.dev/learn/testing)
 
 ## Scripts
 
@@ -45,6 +45,8 @@ npm run test sum # Run a specific test
 - [Mocking](https://vitest.dev/guide/mocking.html)
 - [Mocking - File System](https://vitest.dev/guide/mocking.html#file-system)
 - [`vi.mock()`](https://vitest.dev/api/vi.html#vi-mock)
+- [`vi.hoisted()](https://vitest.dev/api/vi.html#vi-hoisted)
+- [`vi.resetModules()`](https://vitest.dev/api/vi.html#vi-resetmodules)
 
 ### `tests/time.test.ts`
 - [`vi.setSystemTime()`](https://vitest.dev/api/vi.html#vi-setsystemtime)
@@ -66,3 +68,8 @@ npm run test sum # Run a specific test
 - [MSW - `setupServer()`](https://mswjs.io/docs/api/setup-server/)
 - [MSW - `http.get()`](https://mswjs.io/docs/api/http/#httpget)
 - [MSW - `http.json()`](https://mswjs.io/docs/api/http-response#httpresponsejsonbody-init)
+
+> [!WARNING]
+> Vitest will not mock modules that were imported inside a `setup file` because they are cached by the time a test file is running. You can call `vi.resetModules()` inside `vi.hoisted` to clear all module caches before running a test file.
+>
+> https://vitest.dev/api/vi.html#vi-mock

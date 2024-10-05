@@ -1,26 +1,19 @@
 import { test, expect, vi } from 'vitest'
-import { existsSync, readFileSync } from 'node:fs'
-import { resolve } from 'node:path'
-// import { loadConfig } from '@/index' // TODO: check why stop working when imported
+import { loadConfig } from '@/index'
 
-
-vi.mock('node:fs', () => {
-  return {
-    existsSync: vi.fn(() => true),
-    readFileSync: vi.fn(() => {
-      console.log('Mock readFileSync called')
-      return '{ "name": "mocked" }'
-    }),
-  }
+// Since `@/index` module is imported at `msw.setup.ts` we have to clear all module caches first
+// https://vitest.dev/api/vi.html#vi-mock
+vi.hoisted(() => {
+  vi.resetModules()
 })
 
-/** Loads a configuration file from the current directory if it exists */
-export function loadConfig() {
-  const fileDir = resolve(__dirname, 'config.json')
-  if (!existsSync(fileDir)) return undefined
-
-  return JSON.parse(readFileSync(fileDir, 'utf-8'))
-}
+vi.mock('node:fs', () => {
+  console.warn('mocking `node:fs`')
+  return {
+    existsSync: vi.fn(() => true),
+    readFileSync: vi.fn(() => '{ "name": "mocked" }'),
+  }
+})
 
 test.only('with fs', async () => {
   const result = loadConfig()
